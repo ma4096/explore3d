@@ -22,3 +22,4 @@
 ## Planned features:
 	- Make use of animated models
  	- Make use of annotations (https://modelviewer.dev/examples/annotations/index.html) and design/implement an workflow for adding annotations.
+  	- Make use of AR/XR (https://modelviewer.dev/examples/augmentedreality/)
