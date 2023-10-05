@@ -10,6 +10,7 @@ function loadNewModel(path) {
 	model.setAttribute("src", path);
 	//console.log(path.substr(1));
 	//window.history.replaceState( history.state , "3D Port for ISEM", window.location.host + "?f=" + path.substr(1));
+	window.history.pushState("object or string", "3D for ISEM", "/?f=" + path);
 };
 
 function loadIndex() {
@@ -39,9 +40,10 @@ function addPanel(name, path, thumbnail, ci) {
 	/* Create a panel from name and Thumbnail */
 	/* Hyperlink based on name */
 	var panel = document.createElement("div");
+	//var thumb_contain = document.createElement("div");
 	var thumb = document.createElement("img");
 	var caption = document.createElement("span");
-	console.log(ci[name]["folderPath"]);
+	//console.log(ci[name]["folderPath"]);
 	if (ci[name]["folderPath"] != undefined) {
 		panel.onclick = () => {
 			buildMenu(ci[name]);
@@ -54,11 +56,14 @@ function addPanel(name, path, thumbnail, ci) {
 	
 	thumb.setAttribute("src", thumbnail);
 	caption.innerText = name;
+	//thumb_contain.appendChild(thumb);
 
+	//panel.appendChild(thumb_contain);
 	panel.appendChild(thumb);
 	panel.appendChild(caption);
+	panel.classList.add("clickable");
 
-	document.getElementById("menu").appendChild(panel);
+	document.getElementsByTagName("sidebar")[0].appendChild(panel);
 }
 
 function viewLevel() {
@@ -79,8 +84,14 @@ function viewLevel() {
 
 function buildMenu(ci) {
 	//Title:
-	document.getElementById("path").innerText = "ISEM: " + getCurrentDir();
-	document.getElementById("menu").innerHTML = "";
+	document.getElementById("path").innerText = "ISEM: " + ci.folderPath;
+	
+	//clear all menu items from sidebar
+	sidebar = document.getElementsByTagName("sidebar")[0];
+	nav = sidebar.getElementsByTagName("nav")[0];
+  	while (sidebar.lastElementChild != nav) {
+    	sidebar.removeChild(sidebar.lastElementChild);
+  	}
 
 	//console.log(ci);
 	for (var el in ci) {
@@ -91,6 +102,10 @@ function buildMenu(ci) {
 			default:
 				path = ci[el].cad;
 				thumbnail = ci[el].thumbnail;
+				console.log(ci[el].thumbnail);
+				if (thumbnail == undefined) {
+					thumbnail = "./folderIcon.png"
+				}
 				addPanel(el, path, thumbnail, ci);
 		}
 	}

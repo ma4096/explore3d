@@ -8,23 +8,28 @@
 </head>
 <body>
 	<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
-	<div class="side-bar">
-		<h2 id="path">ISEM</h2>
-		<img src="arrow-back-11.jpg" onclick="oneUp()" class="back-arrow"></img>
-		<div class="menu" id="menu">
-		</div>
-	</div>
-	<model-viewer src="" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="Johnrogershousemay2020.webp" shadow-intensity="1">
-	    <!--<div class="progress-bar" slot="progress-bar">
-	        <div class="update-bar"></div>
-	    </div>
-	    <button slot="ar-button" id="ar-button">
-	        View in your space
-	    </button>
-	    <div id="ar-prompt">
-	        <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
-	    </div>-->
+	
+	<model-viewer src="" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="loading.webp" shadow-intensity="1">
+		<button slut="ar-button" id="ar-button">Switch to AR (experimentell)</button>
 	</model-viewer>
+
+	<sidebar>
+		<h2 id="path">ISEM</h2>
+		<nav id="menu">
+			<img class="clickable" src="./arrowBack.png" onclick="oneUp()">
+		</nav>
+	</sidebar>
+	<div id="navButton" class="clickable" onclick="navOpenClose()">
+		Close Menu
+	</div>
+
+	<div id="aniButton" class="clickable" onclick="aniOpenClose()">
+		Open Animations
+	</div>
+	<div class="animation-selector">
+	</div>
+
+	<script type="text/javascript" src="./scriptf.js"></script>
 	<script type="text/javascript" src="./script.js"></script>
 </body>
 </html>

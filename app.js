@@ -12,8 +12,8 @@ var indexFile = fs.readFile("./fileindex.txt", 'utf-8', function(errori, resinde
 });
 
 fs.readFile('./index.html', function(error, html) {
-  console.log("User connected");
   if (error) throw error;
+  console.log("Server started");
   http.createServer((req, res) => {
     const { method, url } = req;
     
@@ -21,7 +21,7 @@ fs.readFile('./index.html', function(error, html) {
       host: url.split("?")[0],
       param: url.split("?")[1]
     };
-    console.log(method, opt.host);
+    console.log("\n",method, opt.host);
     
 
     //index.html bzw Home

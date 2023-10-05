@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>3D Port for ISEM</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+	<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+	
+	<model-viewer src="" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="Johnrogershousemay2020.webp" shadow-intensity="1">
+		<img src="1255266.png"></img>
+	</model-viewer>
+
+	<sidebar>
+		<h2 id="path">ISEM</h2>
+		<div class="menu" id="menu">
+		</div>
+	</sidebar>
+	<div id="navButton" class="clickable" onclick="navOpenClose()">
+		Close Menu
+	</div>
+
+	<div id="aniButton" class="clickable" onclick="aniOpenClose()">
+		Open Animations
+	</div>
+	<div class="animation-selector">
+		<div>Test</div>
+		<div>Test</div>
+		<div>Test</div>
+		<div>Test</div>
+		<div>Test</div>
+		<div>Test</div>
+	</div>
+
+	<script type="text/javascript" src="./scriptf.js"></script>
+	<script type="text/javascript" src="./script.js"></script>
+</body>
+</html>
