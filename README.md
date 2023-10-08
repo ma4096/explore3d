@@ -9,7 +9,7 @@ The project is based on the open-source project [<model-viewer>](https://modelvi
 
 ## What is the designed-for workflow?
 - (Set up node.js/the server (app.js))
-- Put all the models in your desired folder structure into the folder "models"
+- Put all the models in your desired folder structure into a (new) folder "models"
 	- The filenames will be used as the names on the website
 	- (First delete the examples)
 - Run makeFileindex.py using Python (at least Python 3)

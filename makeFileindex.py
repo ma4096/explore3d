@@ -28,6 +28,7 @@ def getChildren(filelist, path, level):
                 obList[obNoEnd] = {"cad": path + ob, "thumbnail": subfolder + "/thumbnail.jpg", "isDir": "0", "annotations": subfolder + "/annotations.txt"}
                 #beides soll kompletten Pfad ab ./models/ geben
                 #hier eines tages auch animations
+                print(ob)
     return obList
     
 liste = getChildren(queue, basePath, 0)
