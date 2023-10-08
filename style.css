@@ -47,7 +47,7 @@ model-viewer {
 	height: 100%;
 	position: absolute;
 }
-.animation-selector {
+.annotation-selector {
 	background-color: #668ea7;
 	overflow: hidden;
 	position: fixed; 
@@ -55,7 +55,7 @@ model-viewer {
     height: 0%;
     width: 100%;
 }
-.animation-selector > div {
+.annotation-selector > div {
 	float: left;
 	display: inline;
 	margin-right: 2em;
@@ -73,7 +73,7 @@ model-viewer {
 	border-color: #00c1d4;
 	background-color: #00c1d4;
 }
-#aniButton {
+#anoButton {
 	position: fixed;
 	bottom: 0%;
 	right: 1em;
@@ -86,4 +86,30 @@ model-viewer {
 }
 .clickable:hover {
 	cursor: pointer;
+}
+
+.hotspot {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: blue;
+  box-sizing: border-box;
+  asdpointer-events: none;
+}
+.annotation {
+	width: auto;
+  background-color: #888888;
+  position: absolute;
+  transform: translate(10px, 10px);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+}
+
+.center-screen {
+	position: fixed;
+	left: 50%;
+	top: 50%;
 }

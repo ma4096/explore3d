@@ -11,10 +11,10 @@ function navOpenClose() {
 	navIsOpen = !navIsOpen;
 }
 
-var aniIsOpen = false;
-function aniOpenClose() {
-	document.getElementsByClassName("animation-selector")[0].style.height = aniIsOpen ? "0%" : "20%";
-	document.getElementById("aniButton").style.bottom = aniIsOpen ? "0%" : "20%";
-	document.getElementById("aniButton").innerText = (aniIsOpen ? "Open Animations" : "Close Animations");
-	aniIsOpen = !aniIsOpen;
+var anoIsOpen = false;
+function anoOpenClose() {
+	document.getElementsByClassName("annotation-selector")[0].style.height = anoIsOpen ? "0%" : "20%";
+	document.getElementById("anoButton").style.bottom = anoIsOpen ? "0%" : "20%";
+	document.getElementById("anoButton").innerText = (anoIsOpen ? "Open Options" : "Close Options");
+	anoIsOpen = !anoIsOpen;
 }

@@ -1,17 +1,51 @@
 var index;
 var menuPath = "";
+var model;
 //var currentIndex;
 
-function loadNewModel(path) {	
-	/*var query = new URLSearchParams(window.location.search);
-	console.log(query);*/
+function loadNewModel(path) {
 	modelCollection = document.getElementsByTagName("model-viewer");
 	model = modelCollection[0];
+
+	annos = model.getElementsByClassName("hotspot");//Delete previous annotations
+	//console.log(annos);
+	for (var i = annos.length-1; i >= 0; i--) {
+		//console.log(annos[i-n]);
+		//console.log(i, annos[i]);
+		document.getElementById(annos[i].id).remove();
+	}
+
 	model.setAttribute("src", path);
-	//console.log(path.substr(1));
-	//window.history.replaceState( history.state , "3D Port for ISEM", window.location.host + "?f=" + path.substr(1));
 	window.history.pushState("object or string", "3D for ISEM", "/?f=" + path);
+
+	loadAnnotations(path);//Add annos for this model
 };
+
+function loadAnnotations(path) {
+	//Get path of annotations.txt of this model
+	pathTXT = getAnnoPath(path);
+	fetch(pathTXT)
+		.then((response)=>{
+			//console.log(response);
+			return response.json();
+		}).then((annoJson)=>{
+			for (n in annoJson) {
+				model.innerHTML = model.innerHTML + annoJson[n];
+			}
+			return annoJson;
+		})
+}
+
+function getAnnoPath(path) {
+	var pathTXT = "";
+	var ar = path.split("/");
+	ar[ar.length-1] = "_" + ar[ar.length-1].substr(0, ar[ar.length-1].length-4);
+	for (n in ar) {
+		pathTXT = pathTXT + (ar[n] + "/");
+	}
+	pathTXT = pathTXT + "annotations.txt";
+	return pathTXT;
+}
 
 function loadIndex() {
 	fetch("./fileindex")
@@ -102,7 +136,7 @@ function buildMenu(ci) {
 			default:
 				path = ci[el].cad;
 				thumbnail = ci[el].thumbnail;
-				console.log(ci[el].thumbnail);
+				//console.log(ci[el].thumbnail);
 				if (thumbnail == undefined) {
 					thumbnail = "./folderIcon.png"
 				}

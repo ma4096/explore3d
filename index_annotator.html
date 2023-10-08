@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Make Annotations</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+	<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+	
+	<model-viewer src="" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="loading.webp" shadow-intensity="1">
+	</model-viewer>
+
+	<sidebar>
+		<h2 id="path">ISEM</h2>
+		<nav id="menu">
+			<img class="clickable" src="./arrowBack.png" onclick="oneUp()">
+		</nav>
+	</sidebar>
+	<div id="navButton" class="clickable" onclick="navOpenClose()">
+		Close Menu
+	</div>
+
+	<div id="anoButton" class="clickable" onclick="anoOpenClose()">
+		Open Annotator
+	</div>
+	<div class="annotation-selector">
+		Enter your content below and hit enter to place it where you are currently aiming. To delete one, right-click it.
+		<p>
+		<input type="color" name="anno-color" id="color" value="#05c6d5"><label for="color">Select a color for annotation, ISEM is standard</label>
+		<div id="content-selection">
+			<input type="radio" name="content" id="text" value="content-text"><label for="text">Text, enter text (or html): </label>
+			<input id="content-text" type="text" placeholder="Enter here"><p>
+
+			<input type="radio" name="content" id="link" value="content-link"><label for="link">Link, paste URL: </label>
+			<input id="content-link" type="text" placeholder="Enter link">
+			<input id="content-link-label" type="text" placeholder="Enter displayed text"><p>
+
+			<!--<input type="radio" name="content" id="img" value="content-img"><label for="img">Image, upload: </label>
+			<input id="content-img" type="file" accept="image/*"><p>-->
+			<input type="button" onclick="postAnnotations()" value="Save Annotations">
+			<input type="password" id="postAuth" placeholder="Enter your authentication"><b id="last-status"> No changes</b>
+	</div>
+	<div class="center-screen">⎲</div>
+
+	<script type="text/javascript" src="./script_for_annotator.js"></script>
+	<script type="text/javascript" src="./scriptf.js"></script>
+	<script type="text/javascript" src="./scripta.js"></script>
+</body>
+</html>
