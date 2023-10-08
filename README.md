@@ -24,6 +24,9 @@ The project is based on the open-source project [<model-viewer>](https://modelvi
 - Start the server ("node app.js"), accessable under port 3000 by default, can be changed at the top of app.js.
 - Finished
 
+## Other information
+- This was made as a project at a university, hence the branding which can be easily changed when you dig into the code.
+
 ## Planned features:
 - Make use of animated models
 - More options for annotations (styling, other positions)
