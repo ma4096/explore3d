@@ -28,7 +28,8 @@ The project is based on the open-source project [<model-viewer>](https://modelvi
 - This was made as a project at a university, hence the branding which can be easily changed when you dig into the code.
 
 ## Planned features:
-- Make use of animated models
+- Make use of animated models (10.10.23: mostly implemented)
+	- Make annotations track on animation like [example](https://modelviewer.dev/examples/annotations/index.html#animatedHotspots).
 - More options for annotations (styling, other positions)
 - Automated screenshot-to-thumbnail
 - Make better use of AR/XR (https://modelviewer.dev/examples/augmentedreality/)
