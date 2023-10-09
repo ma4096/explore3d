@@ -1,7 +1,8 @@
 html, body {
   margin:0px;
   height:100%;
-  font-family: Lucida Sans Typewriter
+  font-family: Lucida Sans Typewriter;
+  background-color: #121212;
 }
 
 sidebar {
@@ -112,4 +113,49 @@ model-viewer {
 	position: fixed;
 	left: 50%;
 	top: 50%;
+}
+
+/*Inside the options for explore3d*/
+.options {
+	height: 50%;
+}
+.anoOptions {
+	width: 20%;
+	float: left;
+}
+.aniOptions {
+	width: 80%;
+	overflow: hidden;
+	float: right;
+}
+.animationsList {
+	height: 50%;
+	overflow-x: auto;
+	white-space: nowrap;
+	text-align: center;
+}
+.animationsList > button {
+	margin-top: 1em;
+	margin-left: 2em;
+	border: 5px solid white;
+	border-radius: 20px;
+	background-color: white;
+}
+.replayOptions {
+	height: 50%;
+	text-align: center;
+	margin: auto;
+}
+#playbackRange {
+	width: 40%;
+}
+
+/*Mobile adjustations*/
+@media screen and (max-width: 840px) {
+  sidebar {
+    width: 90%;
+  }
+  #navButton {
+  	margin-left: 90%;
+  }
 }

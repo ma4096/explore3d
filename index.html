@@ -10,7 +10,7 @@
 	<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 	
 	<model-viewer src="" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="loading.webp" shadow-intensity="1">
-		<button slut="ar-button" id="ar-button">Switch to AR (experimentell)</button>
+		<button slot="ar-button" id="ar-button">Switch to AR (experimentell)</button>
 	</model-viewer>
 
 	<sidebar>
@@ -23,10 +23,48 @@
 		Close Menu
 	</div>
 
+
 	<div id="anoButton" class="clickable" onclick="anoOpenClose()">
 		Open Options
 	</div>
-	<div class="annotation-selector">
+	<div class="annotation-selector"><!-- Named annotations instead of animations to be compatible to style.css-->
+		<!--<section class="options anoOptions">
+			<input type="checkbox" id="showAnnotations" checked="checked" onclick="annotationsShowHide()"><label for="showAnnotations">Show Annotations</label>
+		</section>
+		<section class="options aniOptions">
+			<div class="animationsList">
+			</div>
+			<div class="replayOptions">
+				<div id="playPauseButton" onclick="animationPlayPause(this)" style="float:left">&#9208;</div>
+				<input type="range" min="0" max="99" value="0" id="playbackRange" oninput="jumpAnimation(this)">
+				<label for="playbackSpeed">playback speed: </label>
+				<select id="playbackSpeed" onchange="changeSpeed(this)">
+					<option value="1" selected>100%</option>
+					<option value="0.5">50%</option>
+					<option value="0.25">25%</option>
+					<option value="-0.25">-25%</option>
+					<option value="-0.5">-50%</option>
+					<option value="-1">-100%</option>
+				</select>
+			</div>
+		</section>-->
+		<section class="animationsList options">
+		</section>
+		<section class="replayOptions options">
+			<div id="playPauseButton" onclick="animationPlayPause(this)" style="display:inline; font-size: 1em">&#9208;</div>
+			<label for="playbackRange">Jump in animation: </label><input type="range" min="0" max="99" value="0" id="playbackRange" oninput="jumpAnimation(this)">
+			<p>
+			<label for="playbackSpeed">Playback speed: </label>
+			<select id="playbackSpeed" onchange="changeSpeed(this)">
+				<option value="1" selected>100%</option>
+				<option value="0.5">50%</option>
+				<option value="0.25">25%</option>
+				<option value="-0.25">-25%</option>
+				<option value="-0.5">-50%</option>
+				<option value="-1">-100%</option>
+			</select>
+			<input type="checkbox" id="showAnnotations" checked="checked" onclick="annotationsShowHide()"><label for="showAnnotations">Annotations</label>
+		</section>
 	</div>
 
 	<script type="text/javascript" src="./scriptf.js"></script>

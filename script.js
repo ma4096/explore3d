@@ -23,17 +23,22 @@ function loadNewModel(path) {
 
 function loadAnnotations(path) {
 	//Get path of annotations.txt of this model
-	pathTXT = getAnnoPath(path);
-	fetch(pathTXT)
-		.then((response)=>{
-			//console.log(response);
-			return response.json();
-		}).then((annoJson)=>{
-			for (n in annoJson) {
-				model.innerHTML = model.innerHTML + annoJson[n];
-			}
-			return annoJson;
-		})
+	pathTXT = getAnnoPath(path); 
+	//console.log(pathTXT);
+	try {
+		fetch(pathTXT)
+			.then((response)=>{
+				//console.log(response);
+				return response.json();
+			}).then((annoJson)=>{
+				for (n in annoJson) {
+					model.innerHTML = model.innerHTML + annoJson[n];
+				}
+				return annoJson;
+			});
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 function getAnnoPath(path) {
@@ -45,6 +50,16 @@ function getAnnoPath(path) {
 	}
 	pathTXT = pathTXT + "annotations.txt";
 	return pathTXT;
+}
+
+//Show or hide annotations as chosen in options
+var shown = true;
+function annotationsShowHide() {
+	var annos = model.getElementsByClassName("hotspot");
+	for (var i=0; i<annos.length; i++) {
+		annos[i].style.visibility = shown ? "hidden" : "visible";
+	}
+	shown = !shown;
 }
 
 function loadIndex() {
@@ -74,10 +89,8 @@ function addPanel(name, path, thumbnail, ci) {
 	/* Create a panel from name and Thumbnail */
 	/* Hyperlink based on name */
 	var panel = document.createElement("div");
-	//var thumb_contain = document.createElement("div");
 	var thumb = document.createElement("img");
 	var caption = document.createElement("span");
-	//console.log(ci[name]["folderPath"]);
 	if (ci[name]["folderPath"] != undefined) {
 		panel.onclick = () => {
 			buildMenu(ci[name]);
@@ -164,3 +177,59 @@ function oneUp() {
 //On load
 loadIndex();
 loadNewModel((new URLSearchParams(window.location.search)).get("f"));
+
+//Below handels the animation stuff
+
+//On model load -> timing for getting information from the model
+//var curDuration = 0;
+model.addEventListener("load", ()=>{
+	var an = model.availableAnimations;
+	var pp = document.getElementsByClassName("animationsList")[0];
+	if (an.length === 0) {
+		pp.innerHTML = "No animations available for this model";
+	} else {
+		pp.innerHTML = "";
+		for (n in an) {
+			var b = document.createElement("button");
+			b.innerText = an[n];
+			//console.log(an[n]);
+			b.onclick = function(it) {
+				//console.log(it);
+				model.animationName = it.srcElement.innerText;
+				model.play();
+				isPaused = false;
+				document.getElementById("playPauseButton").innerHTML = "&#9208;";
+			}
+			pp.appendChild(b);
+		}
+	}
+});
+
+//Handle play-pause
+var isPaused = true;
+function animationPlayPause(i) {//i always is a self reference
+	if (isPaused) {
+		//change to playing
+		model.play();
+		model.timeScale = document.getElementById("playbackSpeed").value;
+		i.innerHTML = "&#9654;";//▶
+	} else {
+		model.pause()
+		i.innerHTML = "&#9208;";//⏸ without the blue
+	}
+	isPaused = !isPaused;
+}
+
+//Handle the playback range
+function jumpAnimation(i) {
+	model.timeScale = 1;
+	model.pause();
+	isPaused = true;
+	model.currentTime = i.value/100*model.duration;
+	//console.log(i.value/100*model.duration, model.currentTime, model.duration);
+}
+
+//Handle speed
+function changeSpeed(i) {
+	model.timeScale = i.value;
+}

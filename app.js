@@ -24,37 +24,10 @@ fs.readFile('./index.html', function(error, html) {
       host: url.split("?")[0],
       param: url.split("?")[1]
     };
-    console.log(method, opt.host);
-    
-    //When receiving annotations, delete this part when porting to explore3d
-    if (method === "POST") {
-      //console.log(opt.param);
-      var body = '';
+    //console.log(method, opt.host);
 
-      req.on('data', chunk => {
-        //console.log('A chunk of data has arrived: ', chunk, typeof chunk[0]);
-        for (n in chunk) {
-          if (typeof chunk[n] === "number") {
-            body = body + String.fromCharCode(chunk[n]);
-            process.stdout.write(String.fromCharCode(chunk[n]));
-          }
-        }
-      });
-      req.on('end', () => {
-        //console.log('No more data');
-        //console.log(body);
-        path = getAnnoPath(opt.param.substr(2));
-        //console.log(path);
-        fs.writeFile(path, body.substr(0, body.length-1), (err) => {
-          if (err) {
-            console.error(err);
-          }});
-      })
-    }
-
-    //Keep this when porting to explore3d vv
     //index.html bzw Home
-    else if (opt.host === "/") {
+    if (opt.host === "/") {
       res.writeHeader(200, {"Content-Type": "text/html"});
       res.write(html);
       res.end();
@@ -71,13 +44,21 @@ fs.readFile('./index.html', function(error, html) {
     }
     else if (opt.host.substr(opt.host.length-15) === "annotations.txt") {
       //console.log("annotations requested: " + opt.host);
-      fs.readFile("." + opt.host, "utf-8", (errora, resa)=> {
-        res.writeHeader(200, {"Content-Type": "application/json"});
-        //console.log(resa);
-        res.write(resa);
+      try {
+        if (!fs.existsSync("." + opt.host)) {
+          throw new Error("Trying to access not existing annotations");
+        }
+        fs.readFile("." + opt.host, "utf-8", (errora, resa)=> {
+          res.writeHeader(200, {"Content-Type": "application/json"});
+          //console.log(resa, errora);
+          res.write(resa);
+          res.end();
+          return;
+        });
+      } catch (e) {
+        res.writeHeader(404);
         res.end();
-        return;
-      });
+      }
     }
 
     //Alle anderen Files
@@ -123,7 +104,7 @@ fs.readFile('./index.html', function(error, html) {
 
           var resfile = fs.readFile("." + opt.host, function(errorf, resfile) {
             if (errorf) {
-              console.log(errorf);
+              //console.log(errorf);
               //throw errorf;
             }
             //console.log(ctype + " tried");
