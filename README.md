@@ -2,7 +2,8 @@
 
 ## What is the scope of the project?
 Allow easy access to 3D-models in a webbrowser, to be used in lectures. For example, students can be provided a QR-Code/link to a specific model and explore it whilst the lecturer explains technical details.
-Models can easily be added using the .glb-format. 
+Models can easily be added using the .glb-format.
+An example is currently online at [my GitHub-Pages](https://ma4096.github.io).
 
 ## What technology is being used?
 The project is based on the open-source project [<model-viewer>](https://modelviewer.dev/) and [node.js](nodejs.org). node.js handles the backend, whilst <model-viewer> does the heavy lifting of the 3D-object client-side.
