@@ -1,17 +1,17 @@
 var index;
 var menuPath = "";
 var model;
+//var annotationsShown = true; //replaced by aD
 //var currentIndex;
+
+var aD = document.getElementById("showAnnotations"); //annotations decider, is checkbox
 
 function loadNewModel(path) {
 	modelCollection = document.getElementsByTagName("model-viewer");
 	model = modelCollection[0];
 
 	annos = model.getElementsByClassName("hotspot");//Delete previous annotations
-	//console.log(annos);
 	for (var i = annos.length-1; i >= 0; i--) {
-		//console.log(annos[i-n]);
-		//console.log(i, annos[i]);
 		document.getElementById(annos[i].id).remove();
 	}
 
@@ -28,11 +28,19 @@ function loadAnnotations(path) {
 	try {
 		fetch(pathTXT)
 			.then((response)=>{
-				//console.log(response);
 				return response.json();
 			}).then((annoJson)=>{
+				console.log(annoJson);
 				for (n in annoJson) {
-					model.innerHTML = model.innerHTML + annoJson[n];
+					model.innerHTML = model.innerHTML + annoJson[n]
+						.replace("Ã¤", "ä").replace("Ã¼", "ü").replace("Ã¶", "ö").replace("Ã", "Ä")
+						.replace("Ã", "Ä").replace("Ã", "Ü").replace("Ã", "ß"); //works so whatever
+				}
+				//Check if annos should be displayed or not, similar to annotationsShowHide()
+				var annos = model.getElementsByClassName("hotspot");
+				//console.log(annos);
+				for (var i=0; i<annos.length; i++) {
+					annos[i].style.visibility = aD.checked ? "visible" : "hidden";
 				}
 				return annoJson;
 			});
@@ -53,17 +61,16 @@ function getAnnoPath(path) {
 }
 
 //Show or hide annotations as chosen in options
-var shown = true;
 function annotationsShowHide() {
 	var annos = model.getElementsByClassName("hotspot");
 	for (var i=0; i<annos.length; i++) {
-		annos[i].style.visibility = shown ? "hidden" : "visible";
+		annos[i].style.visibility = aD.checked ? "visible" : "hidden";
 	}
-	shown = !shown;
+	//annotationsShown = !annotationsShown;
 }
 
 function loadIndex() {
-	fetch("./fileindex")
+	fetch("./fileindex.txt")
 		.then((response)=>response.json())
 		.then((responseJson)=>{
 			index = responseJson;
@@ -182,7 +189,9 @@ loadNewModel((new URLSearchParams(window.location.search)).get("f"));
 
 //On model load -> timing for getting information from the model
 //var curDuration = 0;
-model.addEventListener("load", ()=>{
+model.addEventListener("load", addAnimations);
+
+function addAnimations() {
 	var an = model.availableAnimations;
 	var pp = document.getElementsByClassName("animationsList")[0];
 	if (an.length === 0) {
@@ -203,7 +212,7 @@ model.addEventListener("load", ()=>{
 			pp.appendChild(b);
 		}
 	}
-});
+}
 
 //Handle play-pause
 var isPaused = true;

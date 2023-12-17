@@ -5,7 +5,7 @@ const qs = require('querystring');
 var index;
 
 const port = 3000;
-const fileWhitelist = ["models","arrowBack.png","favicon.ico","folderIcon.png", "loading.webp", "script.js", "scriptf.js","style.css"]
+const fileWhitelist = ["models","arrowBack.png","favicon.ico","folderIcon.png","fileindex.txt","loading.webp", "script.js", "scriptf.js","style.css"]
 //Whitelist only on the same level, directories that are mentioned here are fully accessible. Only fileindex and index.html are always included 
 
 var indexFile = fs.readFile("./fileindex.txt", 'utf-8', function(errori, resindex) {
@@ -99,7 +99,7 @@ fs.readFile('./index.html', function(error, html) {
             }
           }
           if (!isOnWhitelist) {
-            throw new Error("Client requested file is not on whitelist");
+            throw new Error("Client requested file is not on whitelist: " + first);
           }
 
           var resfile = fs.readFile("." + opt.host, function(errorf, resfile) {
